@@ -18,7 +18,7 @@ public class DBConnector {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/elearning_db", "root", "asdASD");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/elearning_db", "root", "root1234");
 			System.out.println("Connection Successful");
 		}catch(SQLException e) {
 			e.printStackTrace();

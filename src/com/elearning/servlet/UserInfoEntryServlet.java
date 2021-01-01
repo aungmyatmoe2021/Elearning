@@ -101,9 +101,9 @@ public class UserInfoEntryServlet extends HttpServlet {
 	
 	private void responseURL(String message,HttpServletResponse response)  throws ServletException, IOException{
 		if(message.equals("success")) 
-			response.sendRedirect("http://localhost:8080/elearning/userinfolist");
+			response.sendRedirect("http://localhost:8181/elearning/userinfolist");
 		else
-			response.sendRedirect("http://localhost:8080/elearning/userinfoentry");
+			response.sendRedirect("http://localhost:8181/elearning/userinfoentry");
 	}
 
 	private String userInfoEntryGUI(String strUserRoleID,String strUserRoleName, String strUserRole,String butValue) {

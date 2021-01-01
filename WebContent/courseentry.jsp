@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Info Entry</title>
 <script type='text/javascript'
-	src='http://localhost:8080/elearning/js/userinfo.js'></script>
+	src='http://localhost:8181/elearning/js/userinfo.js'></script>
 <style>
 .back {
 	border-radius: 0.5rem;
@@ -58,6 +58,14 @@ select {
 </style>
 </head>
 <body>
+	<% 
+		if(session.getAttribute("USER_ROLE") !=null) {
+			if (session.getAttribute("USER_ROLE").equals("student") || session.getAttribute("USER_ROLE").equals("manager") || session.getAttribute("USER_ROLE").equals("staff") || session.getAttribute("USER_ROLE").equals("teacher")){
+				response.sendRedirect("/elearning/index.jsp");	
+			}
+		} 
+	%>
+
 	<div style='position: fixed; top: 0%; left: 0%;'>
 		<%@ include file="topmenu.jsp"%>
 	</div>

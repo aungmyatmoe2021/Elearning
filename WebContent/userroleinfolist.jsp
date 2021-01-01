@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Info List</title>
 <script type="text/javascript"
-	src="http://localhost:8080/elearning/js/userroleinfo.js"></script>
+	src="http://localhost:8181/elearning/js/userroleinfo.js"></script>
 <style>
 .center {
 	margin: 15% auto;
@@ -47,6 +47,11 @@ input[type='button']:hover {
 </style>
 </head>
 <body>
+	<% 
+		if(session.getAttribute("USER_ROLE") !=null && session.getAttribute("USER_ROLE").equals("student")) {
+			response.sendRedirect("/elearning/index.jsp");
+		} 
+	%>
 
 	<div style='position: fixed; top: 0%; left: 0%;'>
 		<%@ include file="topmenu.jsp"%>
@@ -55,8 +60,9 @@ input[type='button']:hover {
 	<div class="center">
 		<form method="get" name="frmUserInfoList">
 			<div>
-				<input type="button" name="butNew" value="New" class="addNew"
-					onclick="location.href='/elearning/userroleinfoentry.jsp'">
+				<% if(session.getAttribute("USER_ROLE") !=null && session.getAttribute("USER_ROLE").equals("admin")) { %>
+					<input type="button" name="butNew" value="New" class="addNew" onclick="location.href='/elearning/userroleinfoentry.jsp'">
+				<% } %>
 			</div>
 			<%
 				List<String> lsUserInfo = new UserRoleInfoDAO().selectAllUserRoleInfo();
@@ -66,7 +72,9 @@ input[type='button']:hover {
 					<th>User Role ID</th>
 					<th>User Role Name</th>
 					<th>User Role Description</th>
-					<th colspan="2">Actions</th>
+					<% if(session.getAttribute("USER_ROLE") !=null && session.getAttribute("USER_ROLE").equals("admin")) { %>
+						<th colspan="2">Actions</th>
+					<% } %>
 				</tr>
 				<% for(int i=0;i<lsUserInfo.size();i++){ %>
 				<% String rowStyle = i % 2 == 0 ? "#f2f2f2" : "#CCCCCC"; %>
@@ -75,12 +83,12 @@ input[type='button']:hover {
 					<td><%= strTemp.split(",")[0].trim() %></td>
 					<td><%= strTemp.split(",")[1].trim() %></td>
 					<td><%= strTemp.split(",")[2].trim() %></td>
-					<td><input type="button" name="butUpdate" value="Update"
-						class="update"
-						onclick="location.href='/elearning/userroleinfoentry.jsp?id=<%= strTemp.split(",")[0].trim() %>&status=Update'" />
-						<input type="button" name="butDelete" value="Delete"
-						class="delete"
-						onclick="deleteUserRoleInfo('<%= strTemp.split(",")[0] %>')" /></td>
+					<% if(session.getAttribute("USER_ROLE") !=null && session.getAttribute("USER_ROLE").equals("admin")) { %>
+						<td>
+							<input type="button" name="butUpdate" value="Update" class="update" onclick="location.href='/elearning/userroleinfoentry.jsp?id=<%= strTemp.split(",")[0].trim() %>&status=Update'" />
+							<input type="button" name="butDelete" value="Delete" class="delete" onclick="deleteUserRoleInfo('<%= strTemp.split(",")[0] %>')" />
+						</td>
+					<% } %>
 				</tr>
 				<% } %>
 				<input type="hidden" name="hidID" value="" />

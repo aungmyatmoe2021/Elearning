@@ -48,7 +48,8 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("USER_NAME") != null){
 			session.setAttribute("USER_NAME", null);
-			response.sendRedirect("/elearning/default.jsp");
+			session.setAttribute("USER_ROLE", null);
+			response.sendRedirect("/elearning/index.jsp");
 		}
 		System.out.println("[LogoutServlet]doProcess is ending here.");
 	}

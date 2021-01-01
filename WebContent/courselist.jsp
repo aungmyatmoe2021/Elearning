@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Course Info List</title>
 <script type="text/javascript"
-	src="http://localhost:8080/elearning/js/course.js"></script>
+	src="http://localhost:8181/elearning/js/course.js"></script>
 <style>
 .center {
 	margin: 15% auto;
@@ -47,6 +47,12 @@ input[type='button']:hover {
 </style>
 </head>
 <body>
+	<% 
+		if(session.getAttribute("USER_ROLE") !=null && session.getAttribute("USER_ROLE").equals("student")) {
+			response.sendRedirect("/elearning/index.jsp");
+		} 
+	%>
+
 	<div style='position: fixed; top: 0%; left: 0%;'>
 		<%@ include file="topmenu.jsp"%>
 	</div>
@@ -54,8 +60,9 @@ input[type='button']:hover {
 	<div class="center">
 		<form method="get" name="frmCourseList">
 			<div>
-				<input type="button" name="butNew" value="New" class="addNew"
-					onclick="location.href='/elearning/courseentry.jsp'">
+				<% if(session.getAttribute("USER_ROLE") !=null && session.getAttribute("USER_ROLE").equals("admin")) { %>
+					<input type="button" name="butNew" value="New" class="addNew" onclick="location.href='/elearning/courseentry.jsp'">
+				<% } %>
 			</div>
 			<%
 				List<String> lsCourse = new CourseDAO().selectAllCourse();
@@ -68,7 +75,9 @@ input[type='button']:hover {
 					<th>COURSE BATH NO</th>
 					<th>COURSE START DATE</th>
 					<th>COURSE END DATE</th>
-					<th colspan="2" style="width: 200px;">ACTIONS</th>
+					<% if(session.getAttribute("USER_ROLE") !=null && session.getAttribute("USER_ROLE").equals("admin")) { %>
+						<th colspan="2" style="width: 200px;">ACTIONS</th>
+					<% } %>
 				</tr>
 				<% for(int i=0;i<lsCourse.size();i++){ %>
 				<% String rowStyle = i % 2 == 0 ? "#f2f2f2" : "#CCCCCC"; %>
@@ -80,12 +89,12 @@ input[type='button']:hover {
 					<td><%= strTemp.split(",")[3].trim() %></td>
 					<td><%= strTemp.split(",")[4].trim() %></td>
 					<td><%= strTemp.split(",")[5].trim() %></td>
-					<td style="width: 200px;"><input type="button"
-						name="butUpdate" value="Update" class="update"
-						onclick="location.href='/elearning/courseentry.jsp?id=<%= strTemp.split(",")[0].trim() %>&status=Update'" />
-						<input type="button" name="butDelete" value="Delete"
-						class="delete"
-						onclick="deleteCourse('<%= strTemp.split(",")[0] %>')" /></td>
+					<% if(session.getAttribute("USER_ROLE") !=null && session.getAttribute("USER_ROLE").equals("admin")) { %>
+						<td style="width: 200px;">
+							<input type="button" name="butUpdate" value="Update" class="update" onclick="location.href='/elearning/courseentry.jsp?id=<%= strTemp.split(",")[0].trim() %>&status=Update'" />
+							<input type="button" name="butDelete" value="Delete" class="delete" onclick="deleteCourse('<%= strTemp.split(",")[0] %>')" />
+						</td>
+					<% } %>
 				</tr>
 				<% } %>
 				<input type="hidden" name="hidID" value="" />

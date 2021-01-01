@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.elearning.dao.MemberInfoDAO;
+import com.elearning.dao.UserRoleInfoDAO;
 
 /**
  * Servlet implementation class AuthenticationServlet
@@ -52,6 +53,7 @@ public class AuthenticationServlet extends HttpServlet {
 		String strPassword = "";
 		List<String> record = new ArrayList<String>();
 		HttpSession session = request.getSession();
+		List<String> lsAuthorization = new ArrayList<String>();
 		
 		if(request.getParameter("txtUserName") != null)
 			strUserName = request.getParameter("txtUserName").trim();
@@ -60,11 +62,13 @@ public class AuthenticationServlet extends HttpServlet {
 		
 		if((!(strUserName.equals(""))) && (!(strPassword.equals("")))) {
 			record = new MemberInfoDAO().logInMember(strUserName, strPassword);
+			lsAuthorization = new UserRoleInfoDAO().selectUserRoleInfoByID(record.get(0).substring(1, record.get(0).indexOf("]")).trim().split(",")[7].trim());
 			if(record.size() == 1) {
 				session.setAttribute("USER_NAME", strUserName);
-				response.sendRedirect("/elearning/default.jsp");
+				session.setAttribute("USER_ROLE", lsAuthorization.get(0).substring(1, lsAuthorization.get(0).indexOf("]")).trim().split(",")[1].trim());
+				response.sendRedirect("/elearning/index.jsp");
 			}else {
-				response.sendRedirect("/elearning/default.jsp");
+				response.sendRedirect("/elearning/index.jsp");
 			}
 		}
 		System.out.println("[Authentication Servlet]doProcess is ending here.");

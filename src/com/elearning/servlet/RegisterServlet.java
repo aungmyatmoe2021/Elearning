@@ -114,9 +114,9 @@ public class RegisterServlet extends HttpServlet {
 
 	private void responseURL(String message,HttpServletResponse response)  throws ServletException, IOException{
 		if(message.equals("success")) 
-			response.sendRedirect("http://localhost:8080/elearning/memberinfolist");
+			response.sendRedirect("http://localhost:8181/elearning/memberinfolist");
 		else
-			response.sendRedirect("http://localhost:8080/elearning/register");
+			response.sendRedirect("http://localhost:8181/elearning/register");
 	}
 	
 	private String[] setParameterValue(HttpServletRequest request) {

@@ -46,18 +46,20 @@
 %>
 
 <div class="topnav">
-	<% System.out.println(request.getRequestURL().toString()); %>
-	<a class="<%= strDefault %>"
-		href="http://localhost:8181/elearning/default.jsp">HOME</a> <a
-		class="<%= strMember %>"
-		href="http://localhost:8181/elearning/memberinfolist.jsp">MEMBER
-		LIST</a> <a class="<%= strUserInfo %>"
-		href="http://localhost:8181/elearning/userroleinfolist.jsp">USER
-		INFO LIST</a> <a class="<%= strCourseInfo %>"
-		href="http://localhost:8181/elearning/courselist.jsp">COURSE INFO
-		LIST</a> <a class="<%= strAbout %>"
-		href="http://localhost:8181/elearning/aboutus.jsp">ABOUT US</a> <a
-		class="<%= strContact %>"
-		href="http://localhost:8181/elearning/contactus.jsp">CONTACT US</a>
-	<%@ include file="login.jsp"%>
+	
+	
+	<% if(session.getAttribute("USER_ROLE") != null && session.getAttribute("USER_ROLE").equals("student")) { %>
+		<a class="<%= strDefault %>" href="http://localhost:8181/elearning/index.jsp">HOME</a>
+		<a class="<%= strAbout %>" href="http://localhost:8181/elearning/aboutus.jsp">ABOUT US</a>
+		<a class="<%= strContact %>"href="http://localhost:8181/elearning/contactus.jsp">CONTACT US</a>
+		<%@ include file="login.jsp"%>
+	<% } else { %>
+		<a class="<%= strDefault %>" href="http://localhost:8181/elearning/index.jsp">HOME</a> 
+		<a class="<%= strMember %>" href="http://localhost:8181/elearning/memberinfolist.jsp">MEMBER LIST</a>
+		<a class="<%= strUserInfo %>" href="http://localhost:8181/elearning/userroleinfolist.jsp">USER INFO LIST</a>
+		<a class="<%= strCourseInfo %>" href="http://localhost:8181/elearning/courselist.jsp">COURSE INFO LIST</a>
+		<a class="<%= strAbout %>" href="http://localhost:8181/elearning/aboutus.jsp">ABOUT US</a> 
+		<a class="<%= strContact %>" href="http://localhost:8181/elearning/contactus.jsp">CONTACT US</a>
+		<%@ include file="login.jsp"%>
+	<% } %>
 </div>

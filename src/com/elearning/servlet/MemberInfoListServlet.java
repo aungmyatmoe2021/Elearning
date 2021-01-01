@@ -62,7 +62,7 @@ public class MemberInfoListServlet extends HttpServlet {
 		gui += "<html>";
 		gui += "<head>";
 		gui += "<title>User Info List</title>";
-		gui += "<script type='text/javascript' src='http://localhost:8080/elearning/js/memberinfo.js'></script>";
+		gui += "<script type='text/javascript' src='http://localhost:8181/elearning/js/memberinfo.js'></script>";
 		gui += "</head>";
 		gui += "<body>";
 		gui += "<form method='get' name='frmMemberInfoList'>";
