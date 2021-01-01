@@ -60,6 +60,11 @@ select {
 	font-family: 'Arial' !important;
 	width: 15rem;
 }
+
+.errorMessage{
+	color: red;
+}
+
 </style>
 </head>
 <body>
@@ -114,24 +119,28 @@ select {
 				<input type='text' name='txtFirstName' class="memberinfoText"
 					placeholder='First name' value="<%= strFirstName %>"
 					style='width: 200%;' required />
+				<label class="errorMessage"  id="lblFirstName"></label>
 			</div>
 
 			<div>
 				<input type='text' name='txtLastName' class="memberinfoText"
 					placeholder='Last name' value="<%= strLastName %>"
 					style='width: 200%;' required />
+				<label class="errorMessage"  id="lblLastName"></label>
 			</div>
 
 			<div>
 				<input type='text' name='txtUserName' class="memberinfoText"
 					placeholder='Email or Phone Number' value="<%= strUserName %>"
 					style='width: 200%;' required />
+				<label class="errorMessage"  id="lblUserName"></label>
 			</div>
 
 			<div>
 				<input type='password' name='txtPassword' class="memberinfoText"
 					id='txtPassword' placeholder='Password' value="<%= strPassword %>"
 					style='width: 200%;' required />
+				<label class="errorMessage"  id="lblPassword"></label>
 			</div>
 
 			<div>
@@ -139,32 +148,53 @@ select {
 					class="memberinfoText" id='txtRetypePassword'
 					placeholder='Retype Password' value="<%= strPassword %>"
 					style='width: 200%;' required />
+				<label class="errorMessage"  id="lblRetypePassword"></label>
 			</div>
 
 			<div>
 				<input type='date' name='txtDOB' placeholder='dd-MM-yyyy'
 					class="memberinfoText" value="<%= strDOB %>" style='width: 200%;'
 					required />
+				<label class="errorMessage"  id="lblDOB"></label>
 			</div>
+			
+			<!-- strGender.equals("female") -->
 
-			<% if(strGender.equals("female")){ %>
+			<% if(strStatus.equals("New")){ %>
 			<div>
 				<select name='optGender'>
+					<option value='selectedGender' selected="selected">--Select Gender--</option>
 					<option value='male'>Male</option>
-					<option value='female' selected="selected">Female</option>
-				</select>
-			</div>
-			<% }else{ %>
-			<div>
-				<select name='optGender'>
-					<option value='male' selected="selected">Male</option>
 					<option value='female'>Female</option>
 				</select>
+				<label class="errorMessage"  id="lblGender"></label>
 			</div>
-			<% } %>
+			<% 
+			}else{ 
+				if(strGender.equals("female")){
+			%>
+					<div>
+						<select name='optGender'>
+							<option value='selectedGender'>--Select Gender--</option>
+							<option value='male'>Male</option>
+							<option value='female' selected="selected">Female</option>
+						</select>
+						<label class="errorMessage"  id="lblGender"></label>
+					</div>
+			<%	} else { %>
+					<div>
+						<select name='optGender'>
+							<option value='selectedGender'>--Select Gender--</option>
+							<option value='male' selected="selected">Male</option>
+							<option value='female'>Female</option>
+						</select>
+						<label class="errorMessage"  id="lblGender"></label>
+					</div>
+			<% }} %>
 
 			<div>
 				<select name='optUserRole'>
+					<option value="selectedUserRole" selected="selected">--Select User Role--</option>
 					<% 
 					List<String> lsUserRole = new UserRoleInfoDAO().selectAllUserRoleInfo(); 
 					for(int i=0;i<lsUserRole.size();i++){
@@ -178,10 +208,12 @@ select {
 					}
 				%>
 				</select>
+				<label class="errorMessage"  id="lblUserRole"></label>
 			</div>
 
 			<div>
 				<select name='optCourse'>
+					<option value="selectedCourse" selected="selected">--Select Course--</option>
 					<% 
 					List<String> lsCourse = new CourseDAO().selectAllCourse(); 
 					for(int i=0;i<lsCourse.size();i++){
@@ -195,6 +227,7 @@ select {
 					}
 				%>
 				</select>
+				<label class="errorMessage"  id="lblCourse"></label>
 			</div>
 
 			<div>

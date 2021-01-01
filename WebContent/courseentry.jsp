@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Info Entry</title>
 <script type='text/javascript'
-	src='http://localhost:8181/elearning/js/userinfo.js'></script>
+	src='http://localhost:8181/elearning/js/course.js'></script>
 <style>
 .back {
 	border-radius: 0.5rem;
@@ -55,6 +55,10 @@ select {
 	font-size: 1rem !important;
 	font-family: 'Arial' !important;
 }
+
+.errorMessage{
+	color:red;
+}
 </style>
 </head>
 <body>
@@ -96,39 +100,44 @@ select {
 	%>
 
 	<div style='position: fixed; top: 25%; left: 25%;'>
-		<form method='get' name="frmCourse" action="/elearning/course">
+		<form method='get' name="frmCourse" >
 			<div>
 				<input type='text' name='txtCourseName' class="courseText"
 					placeholder='Course name' value="<%= strCourseName %>"
 					style='width: 200%;' required />
+				<label id="lblCourseName" class="errorMessage"></label>
 			</div>
 
 			<div>
 				<input type='text' name='txtCourseDesp' class="courseText"
 					placeholder='Course Description' value="<%= strCourseDesp %>"
 					style='width: 200%;' required />
+				<label id="lblCourseDesp" class="errorMessage"></label>
 			</div>
 
 			<div>
 				<input type='text' name='txtCourseBathNo' class="courseText"
 					placeholder='Course Bath No' value="<%= strCourseBathNo %>"
 					style='width: 200%;' required />
+				<label id="lblCourseBathNo" class="errorMessage"></label>
 			</div>
 
 			<div>
 				<input type='date' name='txtCourseStartDate' class="courseText"
 					placeholder='dd-MM-yyyy' value="<%= strCourseStartDate %>"
 					style='width: 200%;' required />
+				<label id="lblCourseStartDate" class="errorMessage"></label>
 			</div>
 
 			<div>
 				<input type='date' name='txtCourseEndDate' class="courseText"
 					placeholder='dd-MM-yyyy' value="<%= strCourseEndDate %>"
 					style='width: 200%;' required />
+				<label id="lblCourseEndDate" class="errorMessage"></label>
 			</div>
 
 			<div style='width: 100%; margin-bottom: 5px;'>
-				<input type='submit' Value='<%= strStatus %>' class="sigin">
+				<input type='button' Value='<%= strStatus %>' class="sigin" onclick="checkValidation()" />
 			</div>
 
 			<div style='width: 100%; margin-bottom: 5px;'>

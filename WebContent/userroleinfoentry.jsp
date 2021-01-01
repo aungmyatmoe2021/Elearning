@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>New User Info</title>
 <script type='text/javascript'
-	src='http://localhost:8181/elearning/js/userinfo.js'></script>
+	src='http://localhost:8181/elearning/js/userroleinfo.js'></script>
 <style>
 .back {
 	border-radius: 0.5rem;
@@ -54,6 +54,10 @@ input[type='submit'], input[type='button'], input[type='reset']:hover {
 select {
 	width: 15rem;
 }
+
+.errorMessage{
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -89,22 +93,24 @@ select {
 	%>
 
 	<div style='position: fixed; top: 25%; left: 25%;'>
-		<form method='get' name="frmUserInfo" action="/elearning/userroleinfo">
+		<form method='get' name="frmUserInfo">
 
 			<div style='width: 100%; margin-bottom: 5px;'>
 				<input type='text' name='txtUserRoleName'
 					placeholder="User Role Name" class="userInfoText"
-					id='txtUserRoleName' value='<%= strUserRoleName%>' required />
+					id='txtUserRoleName' value='<%= strUserRoleName%>' />
+				<label id="lblUserRoleName" class="errorMessage"></label>
 			</div>
 
 			<div style='width: 100%; margin-bottom: 5px;'>
 				<input type='text' name='txtUserRoleDesp'
 					placeholder="User Role Description" class="userInfoText"
-					id='txtUserRoleDesp' value='<%= strUserRoleDesp%>' required />
+					id='txtUserRoleDesp' value='<%= strUserRoleDesp%>' />
+				<label id="lblUserRoleDesp" class="errorMessage"></label>
 			</div>
 
 			<div style='width: 100%; margin-bottom: 5px;'>
-				<input type='submit' Value='<%= strStatus %>' class="sigin">
+				<input type='button' Value='<%= strStatus %>' class="sigin" onclick="checkValidation()">
 			</div>
 
 			<div style='width: 100%; margin-bottom: 5px;'>

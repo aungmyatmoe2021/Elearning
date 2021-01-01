@@ -62,13 +62,17 @@ public class AuthenticationServlet extends HttpServlet {
 		
 		if((!(strUserName.equals(""))) && (!(strPassword.equals("")))) {
 			record = new MemberInfoDAO().logInMember(strUserName, strPassword);
-			lsAuthorization = new UserRoleInfoDAO().selectUserRoleInfoByID(record.get(0).substring(1, record.get(0).indexOf("]")).trim().split(",")[7].trim());
-			if(record.size() == 1) {
-				session.setAttribute("USER_NAME", strUserName);
-				session.setAttribute("USER_ROLE", lsAuthorization.get(0).substring(1, lsAuthorization.get(0).indexOf("]")).trim().split(",")[1].trim());
-				response.sendRedirect("/elearning/index.jsp");
+			if(record.size()>0) {
+				lsAuthorization = new UserRoleInfoDAO().selectUserRoleInfoByID(record.get(0).substring(1, record.get(0).indexOf("]")).trim().split(",")[7].trim());
+				if(record.size() == 1) {
+					session.setAttribute("USER_NAME", strUserName);
+					session.setAttribute("USER_ROLE", lsAuthorization.get(0).substring(1, lsAuthorization.get(0).indexOf("]")).trim().split(",")[1].trim());
+					response.sendRedirect("/elearning/index.jsp");
+				}else {
+					response.sendRedirect("/elearning/index.jsp");
+				}
 			}else {
-				response.sendRedirect("/elearning/index.jsp");
+				response.sendRedirect("/elearning/authentication.jsp");
 			}
 		}
 		System.out.println("[Authentication Servlet]doProcess is ending here.");
